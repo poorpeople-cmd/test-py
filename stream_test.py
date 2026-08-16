@@ -106,7 +106,6 @@ def setup_obs_config():
     }
     with open(os.path.join(scene_dir, 'Untitled.json'), 'w') as f: json.dump(scene_json, f, indent=2)
 
-
 # ==========================================
 # 🚀 MAIN LAUNCHER
 # ==========================================
@@ -126,14 +125,31 @@ def main():
     co.set_argument('--start-fullscreen')
     co.set_argument('--autoplay-policy=no-user-gesture-required')
     
-    # 3. Asli Chrome launch karein aur Link open karein
+    # White warning patti ko chhupane ke liye
+    co.set_argument('--test-type')
+    co.set_argument('--disable-infobars')
+    
+    # 3. Asli Chrome launch karein 
     page = ChromiumPage(addr_or_opts=co)
+
+    # ==========================================================
+    # 👇 YAHAN PAR HEADERS ADD KARNE HAIN (Link open karne se pehle) 👇
+    # ==========================================================
+    page.set.headers({
+        'Referer': 'https://8f658612616b34dcf384fec6275a819d.dynaccent.net/',
+        'Origin': 'https://8f658612616b34dcf384fec6275a819d.dynaccent.net',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko)',
+        'Accept-Language': 'en-US,en;q=0.9'
+    })
+    # ==========================================================
+
+    # 4. Ab Headers set hone ke baad Link open karein
     page.get(TARGET_URL)
 
     print("[*] Website load ho chuki hai. Streaming jari hai...")
     print("[!] Testing mode: Script ab infinite loop mein chalta rahega. Rokne ke liye Action cancel karein.")
 
-    # 4. Infinite Loop (Stream chalti rahegi)
+    # 5. Infinite Loop (Stream chalti rahegi)
     try:
         while True:
             time.sleep(60)
