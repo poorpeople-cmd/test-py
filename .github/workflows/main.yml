@@ -7,10 +7,10 @@ on:
         description: 'Target Website URL'
         required: true
         default: 'https://w2.sportsonlinee.click/channels/hd/hd1.php'
-      stream_key:
-        description: 'OBS Stream Key'
+      okru_stream_id:
+        description: 'OK.RU Stream Channel ID (e.g., 1, 1.1, s1.2)'
         required: true
-        default: 'YOUR_STREAM_KEY'
+        default: '1'
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
       - name: Start Broadcast (Xvfb + Python)
         env:
           TARGET_URL: ${{ github.event.inputs.target_url }}
-          STREAM_KEY: ${{ github.event.inputs.stream_key }}
+          OKRU_STREAM_ID: ${{ github.event.inputs.okru_stream_id }}
         run: |
           # Start PulseAudio for sound capture
           pulseaudio -D --exit-idle-time=-1
